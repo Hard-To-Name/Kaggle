@@ -48,8 +48,6 @@ g = plt.imshow(X_train[0][:, :, 0])
 
 model = Sequential()
 
-model = Sequential()
-
 model.add(Conv2D(filters = 32, kernel_size = (5, 5), padding = 'Same',
                 activation = 'relu', input_shape = (28, 28, 1)))
 model.add(Conv2D(filters = 32, kernel_size = (5, 5), padding = 'Same',
