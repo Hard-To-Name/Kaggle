@@ -48,16 +48,26 @@ g = plt.imshow(X_train[0][:, :, 0])
 
 model = Sequential()
 
-model.add(Conv2D(filters = 32, kernel_size = (5, 5), padding = 'Same',\
+model = Sequential()
+
+model.add(Conv2D(filters = 32, kernel_size = (5, 5), padding = 'Same',
                 activation = 'relu', input_shape = (28, 28, 1)))
-model.add(Conv2D(filters = 42, kernel_size = (5, 5), padding = 'Same',\
+model.add(Conv2D(filters = 32, kernel_size = (5, 5), padding = 'Same',
                 activation = 'relu'))
-model.add(MaxPool2D(pool_size = (2, 2), strides = (2, 2)))
+model.add(MaxPool2D(pool_size = (2, 2)))
+model.add(Dropout(0.25))
+
+model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same', 
+                 activation = 'relu'))
+model.add(Conv2D(filters = 64, kernel_size = (5,5),padding = 'Same', 
+                 activation = 'relu'))
+model.add(MaxPool2D(pool_size=(2,2), strides=(2,2)))
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(256, activation = 'relu'))
+model.add(Dense(120, activation = 'relu'))
 model.add(Dropout(0.5))
+model.add(Dense(84, activation = 'relu'))
 model.add(Dense(10, activation = 'softmax'))
 
 optimizer = optimizers.RMSprop(lr = 0.001, rho = 0.9, epsilon = 1e-08, decay = 0.0)
@@ -70,7 +80,7 @@ learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc',
                                             factor=0.5, 
                                             min_lr=0.00001)
 
-epochs = 1
+epochs = 30
 batch_size = 86
 
 datagen = ImageDataGenerator(
@@ -89,7 +99,7 @@ datagen = ImageDataGenerator(
 datagen.fit(X_train)
 
 history = model.fit_generator(datagen.flow(X_train,Y_train, batch_size = batch_size),
-                              steps_per_epoch = X_train.shape[0],
+                              steps_per_epoch = X_train.shape[0] // batch_size,
                               epochs = epochs,
                               validation_data = (X_val,Y_val),
                               verbose = 2,
@@ -188,4 +198,4 @@ results = pd.Series(results,name="Label")
 
 submission = pd.concat([pd.Series(range(1,28001),name = "ImageId"),results],axis = 1)
 
-submission.to_csv("cnn_mnist_datagen.csv",index=False)
+submission.to_csv("output.csv",index=False)
