@@ -25,8 +25,8 @@ import tensorflow as tf
 m_plus = 0.9 # m+
 m_minus = 0.1 # m-
 r = 3 # routing iterations
-batch_size = 10
-regularization_scale = 0
+batch_size = 128
+regularization_scale = 0.5
 
 ### Formulas ###
 def softmax(logits, axis = None):
