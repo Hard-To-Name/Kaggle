@@ -1,7 +1,12 @@
 # Two Sigma: Using News to Predict Stock Movements
 
 ## Notes
-- 
+**Keras Embedding Parameters:**
+- input_dim : the vocabulary size. This is how many unique words are represented in your corpus.
+
+- output_dim : the desired dimension of the word vector. For example, if output_dim = 100, then every word will be mapped onto a vector with 100 elements, whereas if output_dim = 300, then every word will be mapped onto a vector with 300 elements.
+
+- input_length : the length of your sequences. For example, if your data consists of sentences, then this variable represents how many words there are in a sentence. As disparate sentences typically contain different number of words, it is usually required to pad your sequences such that all sentences are of equal length. The keras.preprocessing.pad_sequence method can be used for this (https://keras.io/preprocessing/sequence/).
 
 ## LSTM Configurations
 
