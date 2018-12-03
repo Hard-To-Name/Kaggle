@@ -14,3 +14,6 @@ Accuracy: 99.5%
 In -> [[Conv2D->relu] -> MaxPool2D]*2 -> Flatten -> Dense*3 -> Out
 ```
 Accuracy: 99.342%
+
+### Submission3 (PCA + Logistic Regression):
+Validation Score: 92%
